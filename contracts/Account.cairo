@@ -1,4 +1,6 @@
 # SPDX-License-Identifier: MIT
+# mostly based on https://github.com/OpenZeppelin/cairo-contracts/tree/43b30a69fe2c4e12d43ccbc9097d9b064c3229d4/src/openzeppelin
+# with a few tweaks to make it token gated
 %lang starknet
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin, SignatureBuiltin
@@ -204,6 +206,7 @@ func setTokenURI{
     return ()
 end
 
+#this function just returns the current contract or user (public key) who controls this account
 @view
 func get_account_owner{
         syscall_ptr : felt*,
