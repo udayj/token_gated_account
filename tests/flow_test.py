@@ -76,8 +76,8 @@ def sign_transaction(sender, calls, nonce, max_fee=0):
 
 def run(nre):
 
-    account_address="0x00df974c74f6beb6bab039c8a1b83aa062974307f1cd10cc81fd0ca3c21a3d03"
-    dummy_address="0x020622ebe1f04d8d071d76e285df3fe58895a2a93e7427183cb1fa89322d91c5"
+    account_address="0x071083328c943fedc9f6b06086571c1d50d8435da99fa4bf857c9e310952d304"
+    dummy_address="0x03a4337ce788ef608b904b806e222f7f5f1d2f16a9ecf9dd71ccdaf2098d3aed"
 
     command = [
         "starknet",

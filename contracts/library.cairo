@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 %lang starknet
 
 from starkware.cairo.common.registers import get_fp_and_pc
@@ -134,7 +135,9 @@ func Account_is_valid_signature{
         signature_len: felt,
         signature: felt*
     ) -> ():
-    let (_public_key) = Account_get_token_owner()
+    # we get the current owner of the account for checking ths signature
+    # current owner can be a public key or address
+    let (_public_key) = Account_get_token_owner() 
 
     # This interface expects a signature pointer and length to make
     # no assumption about signature validation schemes.
@@ -163,7 +166,7 @@ func Account_contract_is_owner{
     return()
 end
 
-
+# this function will be called if call originated from a public key (wallet)
 func Account_execute{
         syscall_ptr : felt*, 
         pedersen_ptr : HashBuiltin*,
@@ -215,7 +218,7 @@ func Account_execute{
     return (response_len=response_len, response=response)
 end
 
-
+# this function will be called if call originated from a contract
 func Account_execute_contract_caller{
         syscall_ptr : felt*, 
         pedersen_ptr : HashBuiltin*,
@@ -258,7 +261,7 @@ func Account_execute_contract_caller{
 
     # validate transaction
     
-
+    # just need to chck if calling contract hold the Account NFT (token id 0 0)
     Account_contract_is_owner(caller)
     # bump nonce
     Account_current_nonce.write(_current_nonce + 1)

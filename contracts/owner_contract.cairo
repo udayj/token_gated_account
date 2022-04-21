@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 %lang starknet
 
 
@@ -47,8 +48,9 @@ func set_dummy_value{
 
     let call_array_len = 1
 
+    # the to is just hardcoded for now to the dummy contract deployed locally, can make this a function parameter
     local call_array:AccountCallArray = AccountCallArray(
-                                        to=915467798312581260633126264016657380654328197130958125403255549563813859781,
+                                        to=1647056820853998435206193401686715679947059402351372120481244754576671587053,
                                         selector=1737806834891659957988373423388711239891733974125793472992920296585311412419,
                                         data_offset=0,
                                         data_len=1)
@@ -60,7 +62,7 @@ func set_dummy_value{
    # [call_array].len=1
 
     let calldata_len=1
-    local calldata = 1
+    local calldata = val
     
 
     let (response_len,response)= IAccount.__execute__(address,

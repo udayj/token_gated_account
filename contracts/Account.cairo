@@ -15,7 +15,7 @@ from library import (
 )
 
 from starkware.starknet.common.syscalls import (
-    get_caller_address
+    get_caller_address, get_contract_address
 )
 
 from openzeppelin.introspection.ERC165 import ERC165_supports_interface 
@@ -23,7 +23,7 @@ from openzeppelin.introspection.ERC165 import ERC165_supports_interface
 
 from starkware.cairo.common.uint256 import Uint256
 
-from openzeppelin.token.erc721.library import (
+from library_ERC721 import (
     ERC721_name,
     ERC721_symbol,
     ERC721_balanceOf,
@@ -54,7 +54,9 @@ func constructor{
         symbol: felt,
         public_key: felt
     ):
-    ERC721_initializer(name, symbol)
+    let (contract_address)=get_contract_address()
+    ERC721_initializer(name, symbol, contract_address)
+    
     Account_initializer(public_key)
     return()
 end
@@ -260,6 +262,8 @@ func __execute__{
 
     let (local caller) = get_caller_address()
 
+    # if call originated from public key (wallet) then call as usual and check for signature
+    # else call the corresponding function for contract caller (which checks for ownership of NFT only and not the signature)
     if caller == 0:
 
         let (response_len, response) = Account_execute(
