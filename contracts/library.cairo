@@ -26,6 +26,8 @@ from openzeppelin.token.erc721.library import (
 from starkware.cairo.common.uint256 import Uint256
 from openzeppelin.utils.constants import PREFIX_TRANSACTION
 
+const IACCOUNT_ID = 0xf10dbd44
+
 #
 # Structs
 #
@@ -103,7 +105,7 @@ func Account_initializer{
 
     let token_id:Uint256=Uint256(0,0)
     ERC721_mint(_public_key,token_id)
-    ERC165_register_interface(123)
+    ERC165_register_interface(IACCOUNT_ID)
     return()
 end
 

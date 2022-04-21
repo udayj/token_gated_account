@@ -1,0 +1,4 @@
+# Token Gated Accounts
+
+### Basic Idea
+Account.cairo is the main contract which enables token gating at the account level. It is mostly based on the Open Zeppelin Account contract with a few tweaks. The idea is that instead of storing the public key of a key-pair in the Account contract (which would have been used for signature verification), we instead make the Account contract follow the IERC721 interface and let it store the owner of the Account NFT (designated by the token id 0 0). This owner could be a public key (which would involve signature verification as before) or a contract address (in which case the `__execute__ ` would instead work only if the caller holds the Account NFT). While a bit convoluted, this might enable gas efficient multi asset transfers (only 1 NFT transfer). 
